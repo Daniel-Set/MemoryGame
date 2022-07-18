@@ -98,9 +98,9 @@ public class Game {
     private void runningGame(int guessChances, String levelName, int level) {
         List<String> wordsList = Card.shuffleCards(Card.getCards(FileLoader.loadWordsList(), level));
         List<String> rowA = wordsList.subList(0, level);
-        System.out.println(rowA);
+//        System.out.println(rowA);
         List<String> rowB = wordsList.subList(level, wordsList.size());
-        System.out.println(rowB);
+//        System.out.println(rowB);
 
         while (guessChances != 0) {
             System.out.println(ConsoleColors.BLACK_BRIGHT + "Level: " + levelName + ConsoleColors.RESET);
