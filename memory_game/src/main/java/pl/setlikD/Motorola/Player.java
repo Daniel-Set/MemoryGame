@@ -46,8 +46,8 @@ public class Player implements Comparable<Player> {
 
     public static void top10Printer(List<Player> players) {
         if (players.size() >= 10) {
-            for (Player player : players) {
-                System.out.println("Name: " + player.getName() + " Date: " + player.getLocalDate() + " Guessing time: " + player.getTimeSolving() + " Guessing Tries: " + player.getChancesTaken());
+            for (int i = 0; i < 10; i++) {
+                System.out.println("Name: " + players.get(i).getName() + " Date: " + players.get(i).getLocalDate() + " Guessing time: " + players.get(i).getTimeSolving() + " Guessing Tries: " + players.get(i).getChancesTaken());
             }
         } else {
             for (Player player : players) {
