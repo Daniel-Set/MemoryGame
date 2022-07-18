@@ -1,8 +1,6 @@
 package pl.setlikD.Motorola;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,9 +30,10 @@ public class FileLoader {
 
 
     public static void saveRecord(Player player) {
-        Path path = Paths.get("src/main/resources/best_scores/best-scores.txt");
-        try {
-            Files.writeString(path, player.toString());
+        String fileName = "src/main/resources/best_scores/best-scores.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write("\n");
+            writer.write(player.toString());
         } catch (IOException ex) {
             System.out.println("Could not save file !");
         }
