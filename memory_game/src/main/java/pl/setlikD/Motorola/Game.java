@@ -110,20 +110,18 @@ public class Game {
             System.out.println(ConsoleColors.BLACK_BRIGHT + "Choose the card to uncover, ex. A1" + ConsoleColors.RESET);
             String regex = setRegex(level);
 
-            String regexValidated1 = regexValidator(regex);
-            String str1 = regexValidated1.toUpperCase();
-            int row1 = str1.charAt(0) == 'A' ? 0 : 1;
-            int column1 = Integer.parseInt(String.valueOf(str1.charAt(1))) - 1;
+            int[] intsOne = selectingRow(regex);
+            int row1 = intsOne[0];
+            int column1 = intsOne[1];
             List<String> cards1 = row1 == 0 ? rowA : rowB;
 
             String card1 = setCard(row1, column1, cards1);
             displayBoard(board);
             System.out.println(ConsoleColors.BLACK_BRIGHT + "Choose the card to uncover, ex. A1" + ConsoleColors.RESET);
 
-            String regexValidated2 = regexValidator(regex);
-            String str2 = regexValidated2.toUpperCase();
-            int row2 = str2.toUpperCase().charAt(0) == 'A' ? 0 : 1;
-            int column2 = Integer.parseInt(String.valueOf(str2.charAt(1))) - 1;
+            int[] intsTwo = selectingRow(regex);
+            int row2 = intsTwo[0];
+            int column2 = intsTwo[1];
             List<String> cards2 = row2 == 0 ? rowA : rowB;
 
             String card2 = setCard(row2, column2, cards2);
@@ -152,7 +150,20 @@ public class Game {
                 break;
             }
 
+            if (guessChances == 0) {
+                System.out.println(ConsoleColors.RED + "Game Over" + ConsoleColors.RESET);
+            }
+
         }
+
+    }
+
+    private static int[] selectingRow(String regex) {
+        String regexValidated = regexValidator(regex);
+        String str = regexValidated.toUpperCase();
+        int row = str.charAt(0) == 'A' ? 0 : 1;
+        int column = Integer.parseInt(String.valueOf(str.charAt(1))) - 1;
+        return new int[]{row, column};
 
     }
 

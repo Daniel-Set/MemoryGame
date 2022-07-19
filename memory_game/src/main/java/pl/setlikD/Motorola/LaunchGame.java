@@ -6,5 +6,6 @@ public class LaunchGame {
 
         Game game = Game.getInstance();
         game.initGame();
+
     }
 }

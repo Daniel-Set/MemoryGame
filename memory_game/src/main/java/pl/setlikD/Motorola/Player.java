@@ -16,7 +16,6 @@ public class Player implements Comparable<Player> {
     private LocalDate localDate;
     private LocalTime localTime;
     private int chancesTaken;
-
     private long timeSolving;
 
     public Player(String name, LocalDate localDate, LocalTime localTime) {
