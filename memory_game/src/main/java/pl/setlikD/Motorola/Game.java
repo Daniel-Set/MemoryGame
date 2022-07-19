@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Game {
-    private static String[][] board;
     private static final int EASY = 4;
     private static final int HARD = 8;
     private static final int GUESS_CHANCES_EASY = 10;
     private static final int GUESS_CHANCES_HARD = 15;
+    private static String[][] board;
     private static Game instance;
+    private Player player;
 
     private Game() {
     }
@@ -23,7 +24,85 @@ public class Game {
         return instance;
     }
 
-    private Player player;
+    private static void exitGame() {
+        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "Bye, Bye :)");
+        System.exit(42);
+    }
+
+    private static int[] selectingRow(String regex) {
+        String regexValidated = regexValidator(regex);
+        String str = regexValidated.toUpperCase();
+        int row = str.charAt(0) == 'A' ? 0 : 1;
+        int column = Integer.parseInt(String.valueOf(str.charAt(1))) - 1;
+        return new int[]{row, column};
+
+    }
+
+    private static String setCard(int row, int column, List<String> words) {
+        board[row][column] = words.get(column);
+        return words.get(column);
+    }
+
+    private static String regexValidator(String regex) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String cardToUncover = scanner.nextLine();
+            if (cardToUncover.matches(regex)) {
+                return cardToUncover;
+            } else {
+                System.out.println(ConsoleColors.RED + "Please select a correct coordinate !!!");
+            }
+        }
+    }
+
+    private static String setRegex(int level) {
+        return String.format("^[A-Ba-b][1-%d]", level);
+    }
+
+    private static boolean wonGame() {
+        for (String[] strings : board) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (strings[j].equals("  X  ")) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static void displayBoard(String[][] board) {
+
+        if (board[0].length == EASY) {
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\t\s1\t\t2\t\s\s\s3\t\s\s4" + ConsoleColors.RESET);
+        }
+
+        if (board[0].length == HARD) {
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\t\s1\t\t2\t\s\s\s3\t\s\s4\t\t\s5\t\t6\t\s\s\s7\t\s\s8" + ConsoleColors.RESET);
+        }
+
+        for (int i = 0; i < board.length; i++) {
+            if (i == 0) {
+                System.out.print(ConsoleColors.PURPLE_BOLD_BRIGHT + "A" + ConsoleColors.RESET);
+            } else {
+                System.out.print(ConsoleColors.PURPLE_BOLD_BRIGHT + "B" + ConsoleColors.RESET);
+            }
+            for (int j = 0; j < board[i].length; j++) {
+                System.out.print("  " + board[i][j]);
+            }
+            System.out.println();
+        }
+
+    }
+
+    private static void createBoard(int size) {
+
+        board = new String[2][size];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                board[i][j] = "  X  ";
+            }
+        }
+    }
 
     public void initGame() {
 
@@ -68,11 +147,6 @@ public class Game {
             }
         }
 
-    }
-
-    private static void exitGame() {
-        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "Bye, Bye :)");
-        System.exit(42);
     }
 
     private void startGame(int level) {
@@ -156,80 +230,5 @@ public class Game {
 
         }
 
-    }
-
-    private static int[] selectingRow(String regex) {
-        String regexValidated = regexValidator(regex);
-        String str = regexValidated.toUpperCase();
-        int row = str.charAt(0) == 'A' ? 0 : 1;
-        int column = Integer.parseInt(String.valueOf(str.charAt(1))) - 1;
-        return new int[]{row, column};
-
-    }
-
-    private static String setCard(int row, int column, List<String> words) {
-        board[row][column] = words.get(column);
-        return words.get(column);
-    }
-
-    private static String regexValidator(String regex) {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String cardToUncover = scanner.nextLine();
-            if (cardToUncover.matches(regex)) {
-                return cardToUncover;
-            } else {
-                System.out.println(ConsoleColors.RED + "Please select a correct coordinate !!!");
-            }
-        }
-    }
-
-    private static String setRegex(int level) {
-        return String.format("^[A-Ba-b][1-%d]", level);
-    }
-
-    private static boolean wonGame() {
-        for (String[] strings : board) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (strings[j].equals("  X  ")) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private static void displayBoard(String[][] board) {
-
-        if (board[0].length == EASY) {
-            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\t\s1\t\t2\t\s\s\s3\t\s\s4" + ConsoleColors.RESET);
-        }
-
-        if (board[0].length == HARD) {
-            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\t\s1\t\t2\t\s\s\s3\t\s\s4\t\t\s5\t\t6\t\s\s\s7\t\s\s8" + ConsoleColors.RESET);
-        }
-
-        for (int i = 0; i < board.length; i++) {
-            if (i == 0) {
-                System.out.print(ConsoleColors.PURPLE_BOLD_BRIGHT + "A" + ConsoleColors.RESET);
-            } else {
-                System.out.print(ConsoleColors.PURPLE_BOLD_BRIGHT + "B" + ConsoleColors.RESET);
-            }
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print("  " + board[i][j]);
-            }
-            System.out.println();
-        }
-
-    }
-
-    private static void createBoard(int size) {
-
-        board = new String[2][size];
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = "  X  ";
-            }
-        }
     }
 }
