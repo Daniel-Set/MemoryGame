@@ -111,18 +111,16 @@ public class Game {
         while (true) {
             System.out.println(ConsoleColors.BLACK_BRIGHT + "Press n for new game, q to quit, print TOP10 best records l" + ConsoleColors.RESET);
             String newGame = scanner.nextLine();
-            if (newGame.equals("q")) {
-                exitGame();
-            } else if (newGame.equals("n")) {
-                System.out.print(ConsoleColors.BLUE_BRIGHT + "Enter your name: " + ConsoleColors.RESET);
-                String name = scanner.nextLine();
-                player = new Player(name, LocalDate.now(), LocalTime.now());
-                selectLevel();
-            } else if (newGame.equals("l")) {
-                Player.top10Printer(FileLoader.printTop10());
-
-            } else {
-                System.out.println(ConsoleColors.RED + "Invalid Character !" + ConsoleColors.RESET);
+            switch (newGame) {
+                case "q" -> exitGame();
+                case "n" -> {
+                    System.out.print(ConsoleColors.BLUE_BRIGHT + "Enter your name: " + ConsoleColors.RESET);
+                    String name = scanner.nextLine();
+                    player = new Player(name, LocalDate.now(), LocalTime.now());
+                    selectLevel();
+                }
+                case "l" -> Player.top10Printer(FileLoader.printTop10());
+                default -> System.out.println(ConsoleColors.RED + "Invalid Character !" + ConsoleColors.RESET);
             }
         }
 
