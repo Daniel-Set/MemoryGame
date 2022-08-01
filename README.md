@@ -1,6 +1,6 @@
 # MemoryGame
 ## Description:
-Console game made in Java for Motorola recruitment job representing my Java skills.
+Simple console game made in Java to represent my skills.
 How does this app work? Watch the video below
 ## Technologies used:
 - Java 8
