@@ -1,4 +1,4 @@
-package pl.setlikD.Motorola;
+package pl.setlikD.memorygame;
 
 
 /**

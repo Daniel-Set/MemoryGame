@@ -1,8 +1,6 @@
-package pl.setlikD.Motorola;
+package pl.setlikD.memorygame;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
