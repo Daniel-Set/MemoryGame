@@ -1,6 +1,8 @@
-package pl.setlikD.Motorola;
+package pl.setlikD.memorygame;
 
-public class LaunchGame {
+import pl.setlikD.memorygame.game.Game;
+
+class LaunchGame {
 
     public static void main(String[] args) {
 

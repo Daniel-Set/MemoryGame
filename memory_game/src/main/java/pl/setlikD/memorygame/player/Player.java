@@ -1,7 +1,8 @@
-package pl.setlikD.Motorola;
+package pl.setlikD.memorygame.player;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.setlikD.memorygame.file_card.FileLoader;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @Setter
 @Getter
-public class Player implements Comparable<Player> {
+public
+class Player {
 
     private String name;
     private LocalDate localDate;
@@ -36,46 +38,29 @@ public class Player implements Comparable<Player> {
         LocalTime startGame = player.localTime;
         player.setChancesTaken(chancesTaken);
         player.timeSolving = Duration.between(startGame, endGame).getSeconds();
-
         FileLoader.saveRecord(player);
-
         return String.format("You solved the memory game after %d chances. It took you %d seconds", player.getChancesTaken(), player.getTimeSolving());
 
     }
 
     public static void top10Printer(List<Player> players) {
-        if (players.size() >= 10) {
-            for (int i = 0; i < 10; i++) {
-                System.out.println("Name: " + players.get(i).getName() + " Date: " + players.get(i).getLocalDate() + " Guessing time: " + players.get(i).getTimeSolving() + " Guessing Tries: " + players.get(i).getChancesTaken());
-            }
+        int listSizeTop10 = 10;
+        if (players.size() >= listSizeTop10) {
+            printPlayer(players.subList(0, listSizeTop10));
         } else {
-            for (Player player : players) {
-                System.out.println("Name: " + player.getName() + " Date:" + player.getLocalDate() + " Guessing time: " + player.getTimeSolving() + " Guessing Tries: " + player.getChancesTaken());
-
-            }
+            printPlayer(players);
         }
     }
 
+    private static void printPlayer(List<Player> players) {
+        for (Player player : players) {
+            System.out.println("Name: " + player.getName() + " Date:" + player.getLocalDate() + " Guessing time: " + player.getTimeSolving() + " Guessing Tries: " + player.getChancesTaken());
+        }
+    }
 
     @Override
     public String toString() {
         return this.name + ", " + this.localDate + ", " + this.timeSolving + ", " + this.chancesTaken;
     }
 
-    @Override
-    public int compareTo(Player p) {
-        if (chancesTaken > p.chancesTaken) {
-            return 1;
-        } else if (chancesTaken < p.chancesTaken) {
-            return -1;
-        }
-
-        if (timeSolving > p.timeSolving) {
-            return 1;
-        } else if (timeSolving < p.timeSolving) {
-            return -1;
-
-        }
-        return 0;
-    }
 }

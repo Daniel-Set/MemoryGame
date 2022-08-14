@@ -1,6 +1,4 @@
-package pl.setlikD.Motorola;
-
-import static org.junit.jupiter.api.Assertions.*;
+package pl.setlikD.memorygame;
 
 class GameTest {
 
