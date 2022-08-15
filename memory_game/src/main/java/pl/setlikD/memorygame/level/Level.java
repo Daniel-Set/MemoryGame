@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Level {
     private static final Scanner scanner = new Scanner(System.in);
-
     public void initLevel() {
         final boolean[] flag = {true};
         while (flag[0]) {

@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 public
 class Player {
-
     private String name;
     private LocalDate localDate;
     private LocalTime localTime;
@@ -24,7 +23,6 @@ class Player {
         this.name = name;
         this.localDate = localDate;
         this.localTime = localTime;
-
     }
 
     public Player(String name, LocalDate localDate, long timeSolving, int chancesTaken) {
@@ -40,7 +38,6 @@ class Player {
         player.timeSolving = Duration.between(startGame, endGame).getSeconds();
         FileLoader.saveRecord(player);
         return String.format("You solved the memory game after %d chances. It took you %d seconds", player.getChancesTaken(), player.getTimeSolving());
-
     }
 
     public static void top10Printer(List<Player> players) {

@@ -113,7 +113,7 @@ public class Game {
         });
     }
 
-    private static void NoBagCardsValidation(int row1, int column1, String card1, int row2, int column2, String card2) {
+    private static void noBagCardsValidation(int row1, int column1, String card1, int row2, int column2, String card2) {
         if (card1.equals(card2) && !(row1 == row2 && column1 == column2)) {
             System.out.println(ConsoleColors.GREEN_BRIGHT + "Correct :)" + ConsoleColors.RESET);
         } else {
@@ -125,7 +125,7 @@ public class Game {
 
     private static void cardsValidation(int row1, int column1, String card1, int row2, int column2, String card2) {
         if (!bagValidation(row1, column1, card1, row2, column2, card2)) {
-            NoBagCardsValidation(row1, column1, card1, row2, column2, card2);
+            noBagCardsValidation(row1, column1, card1, row2, column2, card2);
         }
     }
 
@@ -137,19 +137,16 @@ public class Game {
             }
             return true;
         }
-
         if (flippedCardsCounter(card1) == 2 && !card1.equals(card2)) {
             System.out.println(ConsoleColors.RED_BRIGHT + "One of the cards is already uncovered" + ConsoleColors.RESET);
             board[row2][column2] = "  X  ";
             return true;
         }
-
         if (flippedCardsCounter(card2) == 2 && !card1.equals(card2)) {
             System.out.println(ConsoleColors.RED_BRIGHT + "One of the cards is already uncovered" + ConsoleColors.RESET);
             board[row1][column1] = "  X  ";
             return true;
         }
-
         return false;
     }
 
@@ -186,6 +183,7 @@ public class Game {
         }
 
     }
+
     public void runningGame(int guessChances, String levelName, int level) {
         List<String> wordsList = Card.shuffleCards(Card.getCards(FileLoader.loadWordsList(), level));
         List<String> rowA = wordsList.subList(0, level);
@@ -206,17 +204,16 @@ public class Game {
             displayBoard(board);
             cardsValidation(row1, column1, card1, row2, column2, card2);
             guessChances--;
-            if (isWinning(guessChances, level)) break;
+            if (isWinning(guessChances, levelName)) {
+                break;
+            }
         }
 
     }
-    private boolean isWinning(int guessChances, int level) {
+
+    private boolean isWinning(int guessChances, String levelName) {
         if (wonGame()) {
-            if (level == LevelOption.EASY.getSize()) {
-                System.out.println(ConsoleColors.YELLOW_BRIGHT + Player.printCongrats(brandNewGame.getPlayer(), LevelOption.EASY.getGuessChances() - guessChances, LocalTime.now()) + ConsoleColors.RESET);
-            } else {
-                System.out.println(ConsoleColors.YELLOW_BRIGHT + Player.printCongrats(brandNewGame.getPlayer(), LevelOption.HARD.getGuessChances() - guessChances, LocalTime.now()) + ConsoleColors.RESET);
-            }
+            System.out.println(ConsoleColors.YELLOW_BRIGHT + Player.printCongrats(brandNewGame.getPlayer(), LevelOption.fromConsole(levelName).get().getGuessChances() - guessChances, LocalTime.now()) + ConsoleColors.RESET);
             return true;
         }
 
@@ -226,3 +223,4 @@ public class Game {
         return false;
     }
 }
+

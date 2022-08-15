@@ -43,7 +43,7 @@ public enum LevelOption {
         return Optional.empty();
     }
 
-    public SelectLevel getSelectLevel() {
+    public  SelectLevel getSelectLevel() {
         return selectLevel;
     }
 
