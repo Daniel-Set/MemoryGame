@@ -4,11 +4,10 @@ import java.util.*;
 
 public class Card {
     private static final Random random = new Random();
-    private static final int RANDOM_RANGE = 100;
     public static List<String> getCards(List<String> allWords, int numberOfCards) {
         LinkedHashSet<String> cards = new LinkedHashSet<>();
         while (cards.size() != numberOfCards) {
-            int index = random.nextInt(RANDOM_RANGE);
+            int index = random.nextInt(allWords.size());
             cards.add(allWords.get(index));
         }
         List<String> wordsList = new ArrayList<>(cards);
